@@ -1,18 +1,29 @@
-//
-//  Counter.swift
-//  Widget
-//
-//  Created by Renan Machado on 27/09/20.
-//
-
 import Foundation
 
 @objc(Counter)
-class Counter: NSObject {
+class Counter: RCTEventEmitter {
+  
+  override static func requiresMainQueueSetup() -> Bool {
+    return true
+  }
+  
+  override func supportedEvents() -> [String]! {
+    return ["onIncrement"]
+  }
+  
+  public var value = 0
+  
+  override func constantsToExport() -> [AnyHashable : Any]! {
+    return [
+      "value": value,
+    ]
+  }
   
   @objc
-  func constantsToExport() -> [AnyHashable : Any]! {
-    return ["initialCount": 0]
+  func increment() {
+    value += 1
+    
+    sendEvent(withName: "onIncrement", body: ["value": value])
   }
   
 }

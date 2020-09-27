@@ -1,3 +1,8 @@
 #import "React/RCTBridgeModule.h"
-@interface RCT_EXTERN_MODULE(Counter, NSObject)
+#import "React/RCTEventEmitter.h"
+
+@interface RCT_EXTERN_MODULE(Counter, RCTEventEmitter)
+
+RCT_EXTERN_METHOD(increment)
+
 @end
