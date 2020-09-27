@@ -20,6 +20,8 @@
 		7B8CFCC2800B10C2C2566FD2 /* libPods-Widget-WidgetTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A2E5F889766DC1935F218C /* libPods-Widget-WidgetTests.a */; };
 		7D1E9958C8C17875AB6D2A62 /* libPods-Widget-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46291FDB15955CC2775A42B6 /* libPods-Widget-tvOSTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		C5EF181C25214AB4009ACA7B /* Counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EF181B25214AB4009ACA7B /* Counter.swift */; };
+		C5EF182225214B33009ACA7B /* Counter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EF182125214B33009ACA7B /* Counter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,9 @@
 		9BB4A9F36D5D3F0F90DD9AD5 /* Pods-Widget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Widget.debug.xcconfig"; path = "Target Support Files/Pods-Widget/Pods-Widget.debug.xcconfig"; sourceTree = "<group>"; };
 		A3A2E5F889766DC1935F218C /* libPods-Widget-WidgetTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Widget-WidgetTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF0D6A1CBBAF2D67DF1D15F5 /* libPods-Widget.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Widget.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5EF181A25214AB3009ACA7B /* Widget-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Widget-Bridging-Header.h"; sourceTree = "<group>"; };
+		C5EF181B25214AB4009ACA7B /* Counter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Counter.swift; path = Widget/Counter.swift; sourceTree = "<group>"; };
+		C5EF182125214B33009ACA7B /* Counter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Counter.m; path = Widget/Counter.m; sourceTree = "<group>"; };
 		DC8BABFBCE82601C70F93332 /* Pods-Widget-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Widget-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Widget-tvOS/Pods-Widget-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -132,6 +137,9 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				C5EF181B25214AB4009ACA7B /* Counter.swift */,
+				C5EF181A25214AB3009ACA7B /* Widget-Bridging-Header.h */,
+				C5EF182125214B33009ACA7B /* Counter.m */,
 			);
 			name = Widget;
 			sourceTree = "<group>";
@@ -161,7 +169,6 @@
 				3D2EEE3B51FD88A6A26E56EB /* Pods-Widget-tvOSTests.debug.xcconfig */,
 				F345BC4329EEDB73242AFE35 /* Pods-Widget-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -294,7 +301,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1200;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -568,8 +575,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5EF182225214B33009ACA7B /* Counter.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				C5EF181C25214AB4009ACA7B /* Counter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -610,6 +619,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 842E360A0D1D472CE34B69EB /* Pods-Widget-WidgetTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -633,6 +643,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6D0BADBF89780D16EA9F5733 /* Pods-Widget-WidgetTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = WidgetTests/Info.plist;
@@ -666,6 +677,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Widget;
+				SWIFT_OBJC_BRIDGING_HEADER = "Widget-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -688,6 +700,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Widget;
+				SWIFT_OBJC_BRIDGING_HEADER = "Widget-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
