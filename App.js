@@ -1,18 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {SafeAreaView, Text, StatusBar, StyleSheet, Button} from 'react-native';
 
-import Counter from './Counter';
+import useNativeCounter from './useNativeCounter';
 
 const App = () => {
-  const [counter, setCounter] = useState(Counter.value);
-
-  useEffect(() => {
-    const subscription = Counter.addListener('onIncrement', ({value}) => {
-      setCounter(value);
-    });
-
-    return () => Counter.removeSubscription(subscription);
-  }, []);
+  const {counter, increment} = useNativeCounter();
 
   return (
     <>
@@ -20,7 +12,7 @@ const App = () => {
       <SafeAreaView style={styles.container}>
         <Text style={styles.title}>Widget</Text>
         <Text style={styles.counter}>Counter value is {counter}</Text>
-        <Button title="Increment counter" onPress={() => Counter.increment()} />
+        <Button title="Increment counter" onPress={() => increment()} />
       </SafeAreaView>
     </>
   );
