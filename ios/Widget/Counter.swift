@@ -1,5 +1,8 @@
 import Foundation
+import SwiftUI
+import WidgetKit
 
+@available(iOS 14.0, *)
 @objc(Counter)
 class Counter: RCTEventEmitter {
   
@@ -11,19 +14,22 @@ class Counter: RCTEventEmitter {
     return ["onIncrement"]
   }
   
-  public var value = 0
+  @AppStorage("counter", store: UserDefaults(suiteName: "group.com.renanmav.Widget"))
+  var count: Int = Int()
   
   override func constantsToExport() -> [AnyHashable : Any]! {
     return [
-      "value": value,
+      "value": count,
     ]
   }
   
   @objc
   func increment() {
-    value += 1
+    count += 1
     
-    sendEvent(withName: "onIncrement", body: ["value": value])
+    WidgetCenter.shared.reloadTimelines(ofKind: "SimpleWidget")
+    
+    sendEvent(withName: "onIncrement", body: ["value": count])
   }
   
 }

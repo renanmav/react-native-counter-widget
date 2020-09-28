@@ -1,49 +1,50 @@
-//
-//  SimpleWidget.swift
-//  SimpleWidget
-//
-//  Created by Renan Machado on 27/09/20.
-//
-
 import WidgetKit
 import SwiftUI
 
-struct Provider: TimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date())
-    }
-
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date())
-        completion(entry)
-    }
-
-    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        var entries: [SimpleEntry] = []
-
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate)
-            entries.append(entry)
-        }
-
-        let timeline = Timeline(entries: entries, policy: .atEnd)
-        completion(timeline)
-    }
-}
-
 struct SimpleEntry: TimelineEntry {
-    let date: Date
+  let date = Date()
+  let count: Int
 }
+
+extension SimpleEntry {
+  static var placeholder: SimpleEntry {
+    SimpleEntry(count: 0)
+  }
+}
+
+struct Provider: TimelineProvider {
+  @AppStorage("counter", store: UserDefaults(suiteName: "group.com.renanmav.Widget"))
+  var count: Int = Int()
+  
+  func placeholder(in context: Context) -> SimpleEntry {
+    SimpleEntry.placeholder
+  }
+
+  func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
+    if context.isPreview {
+      completion(SimpleEntry.placeholder)
+    } else {
+      let entry = SimpleEntry(count: count)
+      completion(entry)
+    }
+  }
+
+  func getTimeline(in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> ()) {
+    let entry = SimpleEntry(count: count)
+    let timeline = Timeline(entries: [entry], policy: .atEnd)
+    completion(timeline)
+  }
+}
+
 
 struct SimpleWidgetEntryView : View {
-    var entry: Provider.Entry
+  var entry: Provider.Entry
 
-    var body: some View {
-        Text(entry.date, style: .time)
+  var body: some View {
+    VStack {
+      Text("Counter is \(entry.count)")
     }
+  }
 }
 
 @main
@@ -54,14 +55,15 @@ struct SimpleWidget: Widget {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             SimpleWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("My Widget")
-        .description("This is an example widget.")
+        .supportedFamilies([.systemSmall])
+        .configurationDisplayName("Counter")
+        .description("This is an counter widget.")
     }
 }
 
 struct SimpleWidget_Previews: PreviewProvider {
     static var previews: some View {
-        SimpleWidgetEntryView(entry: SimpleEntry(date: Date()))
-            .previewContext(WidgetPreviewContext(family: .systemSmall))
+      SimpleWidgetEntryView(entry: SimpleEntry.placeholder)
+          .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }
